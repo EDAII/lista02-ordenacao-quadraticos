@@ -6,6 +6,147 @@ using namespace std;
 #define NOT_FOUND -1
 #endif
 
+#ifndef null
+#define null NULL
+#endif
+
+// class Node {
+//   public:
+//   int value;
+//   int fb;
+//   Node *left;
+//   Node *right;
+// };
+
+typedef struct x {
+  int value;
+  struct x* left;
+  struct x* right;
+  int fb;
+} Node;
+
+int height (Node *root) {
+  if (root != null) {
+    int hright, hleft;
+    hright = height(root->right) + 1;
+    hleft = height(root->left) + 1;
+    if (hright > hleft) {
+      return hright;
+    }
+    else {
+      return hleft;
+    }
+  }
+  return 0;
+}
+
+int calc_factor_b(Node *target) {
+  return (height(target->left) - height(target->right));
+}
+
+Node * rot_left(Node *t) {
+  Node *aux;
+  aux = t->right;
+  t->right = aux->left;
+  aux->left = t;
+  aux->fb = calc_factor_b(aux);
+  t->fb = calc_factor_b(t);
+  return aux;
+}
+
+Node * rot_right(Node * a) {
+  Node * b;
+  b = a->left;
+  a->left = b->right;
+  b->right = a;
+  a->fb = calc_factor_b(a);
+  b->fb = calc_factor_b(b);
+  return b;
+}
+
+Node * rot_left_right(Node* root) {
+  root->left = rot_left(root->left);
+  root = rot_right(root);
+  return root;
+}
+
+Node * rot_right_left(Node* root) {
+  root->right = rot_right(root->right);
+  root = rot_left(root);
+  return root;
+}
+
+Node * new_element(int value) {
+  Node * newbie = new Node;
+
+  newbie->value = value;
+  newbie->left = newbie->right = NULL;
+  newbie->fb = 0;
+
+  return newbie;
+}
+
+// TODO
+Node * insert(Node * root, int value) {
+  if (root == null) {
+    root = new_element(value);
+    return root;
+  }
+  else if (value < root->value) {
+    root->left = insert(root->left, value);
+    root->fb = calc_factor_b(root);
+  }
+  else if (value > root->value) {
+    root->right = insert(root->right, value);
+    root->fb = calc_factor_b(root);
+  }
+
+  // balancing
+  if (root->fb > 1) {
+    if (root->left->fb < 0) {
+      root = rot_left_right(root);
+    }
+    else {
+      root = rot_right(root);
+    }
+  }
+  if (root->fb < -1) {
+    if (root->right->fb > 0) {
+      root = rot_right_left(root);
+    }
+    else {
+      root = rot_left(root);
+    }
+  }
+  return root;
+}
+
+int srch_avl(Node * root, int target) {
+  Node * node;
+  node = root;
+
+  while(node != NULL && node->value != target){
+
+    if (target < node->value) {
+      node = node->left;
+    }
+
+    else if (target > node->value)
+    {
+      node = node->right;
+    }
+  }
+
+
+  if (node != NULL) {
+    return node->value;
+  }
+  // node == NULL
+  return -1;
+}
+
+//-----------------------------------------------------------
+
 int sequential_srch(int* vector, int target, int size) {
   for (int i = 0; i < size; i++) {
     if (vector[i] == target) {
@@ -99,10 +240,7 @@ int binary_srch(int* array, int target, int size) {
   return NOT_FOUND;
 }
 
-int binary_tree_search(/* arguments */) {
-  /* code */
-  return 0;
-}
+// auxiliary funcs
 
 int menu () {
   int number = 0;
@@ -121,16 +259,35 @@ int* generate_vctr(int size) {
   return list;
 }
 
+Node * generate_avl_tree(Node * tree, int *vector, int size) {
+ for(int i = 0; i < size; i++) {
+   tree = insert(tree, vector[i]);
+ }
+ return tree;
+}
+
 int main(int argc, char const *argv[]) {
   int option = menu ();
 
   std::cout << "gerando vetores" << '\n';
+
   int *v1 = generate_vctr(100);
   int *v2 = generate_vctr(1000);
   int *v3 = generate_vctr(10000);
+
   std::cout << "vetores gerados" << '\n';
 
+  Node *tree100 = new Node;
+  Node *tree1k = new Node;
+  Node *tree10k = new Node;
 
+  cout << 'gerando arvores' << endl;
+
+  tree100 = generate_avl_tree(tree100, v1, 100);
+  tree1k = generate_avl_tree(tree1k, v2, 1000);
+  tree10k = generate_avl_tree(tree10k, v3, 10000);
+
+  cout << 'arvores geradas' << endl;
 
   return 0;
 }
