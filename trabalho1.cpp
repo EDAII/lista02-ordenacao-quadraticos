@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 
 using namespace std;
 
@@ -86,7 +87,6 @@ Node * new_element(int value) {
   return newbie;
 }
 
-// TODO
 Node * insert(Node * root, int value) {
   if (root == null) {
     root = new_element(value);
@@ -125,7 +125,7 @@ int srch_avl(Node * root, int target) {
   Node * node;
   node = root;
 
-  while(node != NULL && node->value != target){
+  while(node != NULL and node->value != target){
 
     if (target < node->value) {
       node = node->left;
@@ -182,7 +182,7 @@ int sentinel_seq_srch(int* vector, int target, int size) {
   return i;
 }
 
-int tab_search(int* vctor, int target, int size) {
+int tab_srch(int* vctor, int target, int size) {
   int *tab_index = new int[10];
   int step = size / 10;
 
@@ -235,7 +235,7 @@ int binary_srch(int* array, int target, int size) {
       inf = guess;
       guess = (inf + sup) / 2;
     }
-  } while(target != guess && sup <= inf);
+  } while(target != guess and sup <= inf);
 
   return NOT_FOUND;
 }
@@ -247,7 +247,7 @@ int menu () {
   do {
     std::cout << "Digite um número entre 1 e 10.000 para começar a aplicação" << '\n';
     std::cin >> number;
-  } while (!(number > 0 && number <= 10000));
+  } while (!(number > 0 and number <= 10000));
   return number;
 }
 
@@ -260,10 +260,10 @@ int* generate_vctr(int size) {
 }
 
 Node * generate_avl_tree(Node * tree, int *vector, int size) {
- for(int i = 0; i < size; i++) {
-   tree = insert(tree, vector[i]);
- }
- return tree;
+  for(int i = 0; i < size; i++) {
+    tree = insert(tree, vector[i]);
+  }
+  return tree;
 }
 
 int main(int argc, char const *argv[]) {
@@ -284,10 +284,122 @@ int main(int argc, char const *argv[]) {
   cout << 'gerando arvores' << endl;
 
   tree100 = generate_avl_tree(tree100, v1, 100);
-  tree1k = generate_avl_tree(tree1k, v2, 1000);
+  tree1k  = generate_avl_tree(tree1k, v2, 1000);
   tree10k = generate_avl_tree(tree10k, v3, 10000);
 
   cout << 'arvores geradas' << endl;
+
+  int res = 0;
+  int start_s;
+  int stop_s;
+
+  start_s=clock();
+
+  res = srch_avl();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+  start_s=clock();
+
+  res = sentinel_seq_srch();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+  start_s=clock();
+
+  res = sequential_srch();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+  start_s=clock();
+
+  res = binary_srch();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+  start_s=clock();
+
+  res = tab_srch();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+
+  start_s=clock();
+
+  res = srch_avl();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+  start_s=clock();
+
+  res = sentinel_seq_srch();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+  start_s=clock();
+
+  res = sequential_srch();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+  start_s=clock();
+
+  res = binary_srch();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+  start_s=clock();
+
+  res = tab_srch();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+
+  start_s=clock();
+
+  res = srch_avl();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+  start_s=clock();
+
+  res = sentinel_seq_srch();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+  start_s=clock();
+
+  res = sequential_srch();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+  start_s=clock();
+
+  res = binary_srch();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
+  start_s=clock();
+
+  res = tab_srch();
+
+  stop_s=clock();
+  cout << "time: " << (stop_s-start_s)/double(CLOCKS_PER_SEC)*1000 << endl;
+
 
   return 0;
 }
