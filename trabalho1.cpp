@@ -149,38 +149,35 @@ int sequential_srch(int* vector, int target, int size) {
   return NOT_FOUND;
 }
 
-int* cpy_array_to_sentinel(int* vector, int size) {
-  int* new_array = new int[size + 1];
-  for (int i = 0; i < size; i++) {
-    new_array[i] = vector[i];
-  }
-  return new_array;
-}
+// int* cpy_array_to_sentinel(int* vector, int size) {
+//   int* new_array = new int[size + 1];
+//   for (int i = 0; i < size; i++) {
+//     new_array[i] = vector[i];
+//   }
+//   return new_array;
+// }
 
-int sentinel_seq_srch(int* vector, int target, int size) {
-  int array_size = size;
-
-  int* new_array = cpy_array_to_sentinel(vector, array_size);
-
-  new_array[array_size] = target;
+int sentinel_seq_srch(int vector[], int target, int size) {
 
   int i = 0;
-  while (new_array[i] != target) {
+  vector[size] = target; // sentinela
+
+  while (vector[i] != target) {
     i++;
   }
 
-  if (i == array_size) {
+  if (i == size) {
     return NOT_FOUND;
   }
   return i;
 }
 
 // FIXME
-int tab_srch(int* vctor, int target, int size) {
+int tab_srch(int* vector, int target, int size) {
   int *tab_index = new int[10];
   int step = size / 10;
   for (int i = 0; i < 10; i++) {
-    tab_index[i] = vctor[i * step];
+    tab_index[i] = vector[i * step];
   }
 
   int init = 0;
@@ -203,7 +200,7 @@ int tab_srch(int* vctor, int target, int size) {
     return NOT_FOUND;
   }
   for (int i = init; i < fin; i++) {
-    if (vctor[i] == target) {
+    if (vector[i] == target) {
       return i;
     }
   }
