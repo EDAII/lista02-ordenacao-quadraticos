@@ -209,24 +209,22 @@ int tab_srch(int* vector, int target, int size) {
 }
 
 int binary_srch(int* array, int target, int size) {
-  int sup = size - 1, inf = 0, guess = 0;
 
-  do {
-    guess = (sup + inf) / 2;
-    if (array[guess] > target) {
-      sup = guess - 1;
-      guess = (inf + sup) / 2;
-    }
-    else if (array[guess] == target) {
-      return guess;
-    }
-    else if (array[guess] < target) {
-      inf = guess;
-      guess = (inf + sup) / 2;
-    }
-  } while(target != guess and sup <= inf);
+  int i, start, medium, end;
+  start = 0;
+  end = size - 1;
 
-  return NOT_FOUND;
+  while(start  <= end){
+    medium = (start + end)/2; 
+    if(target < array[medium])
+      end = medium-1; //busca na metade da esquerda
+    else
+      if(target > array[medium])
+        start = medium+1; //busca na metade da direita
+      else
+        return medium;
+  }
+  return NOT_FOUND; // elemento nao encontrado 
 }
 
 // auxiliary funcs
