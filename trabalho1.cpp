@@ -160,7 +160,8 @@ int sequential_srch(int* vector, int target, int size) {
 int sentinel_seq_srch(int vector[], int target, int size) {
 
   int i = 0;
-  vector[size] = target; // sentinela
+  // sentinela
+  vector[size] = target; 
 
   while (vector[i] != target) {
     i++;
