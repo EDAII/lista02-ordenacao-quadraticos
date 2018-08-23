@@ -161,7 +161,7 @@ int sentinel_seq_srch(int vector[], int target, int size) {
 
   int i = 0;
   // sentinela
-  vector[size] = target; 
+  vector[size] = target;
 
   while (vector[i] != target) {
     i++;
@@ -215,7 +215,7 @@ int binary_srch(int* array, int target, int size) {
   end = size - 1;
 
   while(start  <= end){
-    medium = (start + end)/2; 
+    medium = (start + end)/2;
     if(target < array[medium])
       end = medium-1; //busca na metade da esquerda
     else
@@ -224,7 +224,7 @@ int binary_srch(int* array, int target, int size) {
       else
         return medium;
   }
-  return NOT_FOUND; // elemento nao encontrado 
+  return NOT_FOUND; // elemento nao encontrado
 }
 
 // auxiliary funcs
@@ -264,15 +264,15 @@ int main(int argc, char const *argv[]) {
   cout << "gerado vetor de 1000 itens" << endl;
   int *v3 = generate_vctr(10000);
   cout << "gerado vetor de 10000 itens" << endl;
-  // int *v4 = generate_vctr(100000);
-  // cout << "gerado vetor de 100000 itens" << endl;
+  int *v4 = generate_vctr(100000);
+  cout << "gerado vetor de 100000 itens" << endl;
 
   std::cout << "vetores gerados" << '\n';
 
   Node *tree100 = new Node;
   Node *tree1k = new Node;
   Node *tree10k = new Node;
-  // Node *tree100k = new Node;
+  Node *tree100k = new Node;
 
   cout << "gerando arvores" << endl;
 
@@ -282,15 +282,15 @@ int main(int argc, char const *argv[]) {
   cout << "gerada arvore de 1000 nos" << endl;
   tree10k  = generate_avl_tree(tree10k, v3, 10000);
   cout << "gerada arvore de 10000 nos" << endl;
-  // tree100k = generate_avl_tree(tree100k, v4, 100000);
-  // cout << "gerada arvore de 100000 nos" << endl;
+  tree100k = generate_avl_tree(tree100k, v4, 100000);
+  cout << "gerada arvore de 100000 nos" << endl;
 
   cout << "arvores geradas!" << endl;
 
   int res = 0;
   int start_s;
   int stop_s = 0;
-  
+
   cout << "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-" << endl;
   cout << "executando com 100 dados" << endl;
   cout << "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-" << endl;
@@ -378,34 +378,34 @@ int main(int argc, char const *argv[]) {
   stop_s = clock();
   cout << res << " tabular (10k items) time: " << (stop_s - start_s) / double(CLOCKS_PER_SEC) * 1000 << endl;
 
-  // cout << "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-" << endl;
-  // cout << "executando com 100000 dados" << endl;
-  // cout << "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-" << endl;
+  cout << "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-" << endl;
+  cout << "executando com 100000 dados" << endl;
+  cout << "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-" << endl;
 
-  // start_s = clock();
-  // res = srch_avl(tree100k, number);
-  // stop_s = clock();
-  // cout << res << " avl (100k items) time: " << (stop_s - start_s) / double(CLOCKS_PER_SEC) * 1000 << endl;
+  start_s = clock();
+  res = srch_avl(tree100k, number);
+  stop_s = clock();
+  cout << res << " avl (100k items) time: " << (stop_s - start_s) / double(CLOCKS_PER_SEC) * 1000 << endl;
 
-  // start_s = clock();
-  // res = sentinel_seq_srch(v4, number, 100000);
-  // stop_s = clock();
-  // cout << res << " sentinel (100k items) time: " << (stop_s - start_s) / double(CLOCKS_PER_SEC) * 1000 << endl;
+  start_s = clock();
+  res = sentinel_seq_srch(v4, number, 100000);
+  stop_s = clock();
+  cout << res << " sentinel (100k items) time: " << (stop_s - start_s) / double(CLOCKS_PER_SEC) * 1000 << endl;
 
-  // start_s = clock();
-  // res = sequential_srch(v4, number, 100000);
-  // stop_s = clock();
-  // cout << res << " sequential (100k items) time: " << (stop_s - start_s) / double(CLOCKS_PER_SEC) * 1000 << endl;
+  start_s = clock();
+  res = sequential_srch(v4, number, 100000);
+  stop_s = clock();
+  cout << res << " sequential (100k items) time: " << (stop_s - start_s) / double(CLOCKS_PER_SEC) * 1000 << endl;
 
-  // start_s = clock();
-  // res = binary_srch(v4, number, 100000);
-  // stop_s = clock();
-  // cout << res << " binary (100k items) time: " << (stop_s - start_s) / double(CLOCKS_PER_SEC) * 1000 << endl;
+  start_s = clock();
+  res = binary_srch(v4, number, 100000);
+  stop_s = clock();
+  cout << res << " binary (100k items) time: " << (stop_s - start_s) / double(CLOCKS_PER_SEC) * 1000 << endl;
 
-  // start_s = clock();
-  // res = tab_srch(v4, number, 100000);
-  // stop_s = clock();
-  // cout << res << " tabular (100k items) time: " << (stop_s - start_s) / double(CLOCKS_PER_SEC) * 1000 << endl;
+  start_s = clock();
+  res = tab_srch(v4, number, 100000);
+  stop_s = clock();
+  cout << res << " tabular (100k items) time: " << (stop_s - start_s) / double(CLOCKS_PER_SEC) * 1000 << endl;
 
   return 0;
 }
