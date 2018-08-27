@@ -1,4 +1,4 @@
-def shellsort (alist):
+def shell_sort (alist):
 	sublistcount = len(alist)//2
 	while sublistcount > 0:
 		for startposition in range(sublistcount):
@@ -18,6 +18,6 @@ def gapInsertionSort(alist, start, gap):
 
 alist=[54,26,93,17, 31, 44, 55,20]
 
-shellsort(alist)
+shell_sort(alist)
 
 print (alist)
