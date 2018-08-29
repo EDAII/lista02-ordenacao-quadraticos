@@ -1,4 +1,6 @@
 from random import randint
+import time
+import random 
 
 def bubble_sort(array):
     limit = len(array)
