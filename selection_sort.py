@@ -1,4 +1,5 @@
 import random
+import time
 
 def selection_sort(vector):
     # runs through inversed array searching for the greater number
@@ -10,3 +11,27 @@ def selection_sort(vector):
                 max_pos = locale
         # swaps those modafockars
         vector[fillslot], vector[max_pos] = vector[max_pos], vector[fillslot]
+
+vector = list(range(0,100))
+
+before = time.time()
+selection_sort(vector)
+after = time.time()
+
+total = (after-before)*1000
+
+print("Tempo total para ordenar vetor com 100 elementos: %0.2f ms" %total)
+
+
+vector2 = list(range(0,1000))
+
+before1 = time.time()
+selection_sort(vector2)
+after = time.time()
+
+
+total2 = (after-before)*1000
+
+
+print("Tempo total para ordenar vetor com 1000 elementos: %0.2f ms" %total2)
+
